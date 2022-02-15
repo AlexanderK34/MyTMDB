@@ -7,7 +7,7 @@
     android:background="#000000"
     android:orientation="vertical"
 
-    tools:context="com.alex_katrich.mymovies.MainActivity">
+    tools:context="com.alexk34.mymovies.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

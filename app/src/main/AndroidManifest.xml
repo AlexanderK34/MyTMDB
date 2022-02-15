@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mymovies">
+    package="com.alexk34.mymovies">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,19 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMovies">
-        <activity android:name="com.alex_katrich.mymovies.CastDetailsActivity"></activity>
-        <activity android:name="com.alex_katrich.mymovies.CastActivity" />
+        <activity android:name="com.alexk34.mymovies.CastDetailsActivity"></activity>
+        <activity android:name="com.alexk34.mymovies.CastActivity" />
         <activity
-            android:name="com.alex_katrich.mymovies.TrailersActivity"
+            android:name="com.alexk34.mymovies.TrailersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.alex_katrich.mymovies.Favorites"
+            android:name="com.alexk34.mymovies.Favorites"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.alex_katrich.mymovies.MovieDetails"
+            android:name="com.alexk34.mymovies.MovieDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.alex_katrich.mymovies.MainActivity"
+            android:name="com.alexk34.mymovies.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
