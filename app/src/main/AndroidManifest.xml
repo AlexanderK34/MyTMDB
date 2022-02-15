@@ -12,19 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyMovies">
-        <activity android:name=".CastDetailsActivity"></activity>
-        <activity android:name=".CastActivity" />
+        <activity android:name="com.alex_katrich.mymovies.CastDetailsActivity"></activity>
+        <activity android:name="com.alex_katrich.mymovies.CastActivity" />
         <activity
-            android:name=".TrailersActivity"
+            android:name="com.alex_katrich.mymovies.TrailersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Favorites"
+            android:name="com.alex_katrich.mymovies.Favorites"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MovieDetails"
+            android:name="com.alex_katrich.mymovies.MovieDetails"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.alex_katrich.mymovies.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
