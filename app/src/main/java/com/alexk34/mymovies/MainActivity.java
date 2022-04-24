@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity
     public static final String API_KEY = "d241f8c40debbe6d6fb779f086d60860";
     public static final String BASE_URL = "https://api.themoviedb.org/3/";
     public static String LANGUAGE = "en-US";
+    public final int TOP_RATED = 1;
+    public final int POPULAR = 2;
+    public final int NOW_PLAYING = 3;
+    public final int UPCOMING = 4;
 
     String searchQuery;
     int currentPage, totalPages, currentList;
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity
 
     private void initialize() {
         currentPage = 1;
-        currentList = 1;
+        currentList = POPULAR;
         MovieDataCollection.movieArrayList = new ArrayList<>();
         apiService = RetrofitClient.getClient(BASE_URL).create(APIService.class);
 
@@ -70,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         binding.rbPopular.setOnClickListener(this);
         binding.rbTopRated.setOnClickListener(this);
         binding.rbUpcoming.setOnClickListener(this);
-        binding.rbTopRated.setChecked(true);
+        binding.rbPopular.setChecked(true);
     }
 
     private void initializeRecyclerView() {
@@ -88,13 +92,13 @@ public class MainActivity extends AppCompatActivity
     private void initializeMoviesList() {
         if (searchQuery != null) {
             getMoviesSearch(searchQuery);
-        } else if (currentList == 1) {
+        } else if (currentList == TOP_RATED) {
             getMoviesTopRated();
-        } else if (currentList == 2) {
+        } else if (currentList == POPULAR) {
             getMoviesPopular();
-        } else if (currentList == 3) {
+        } else if (currentList == NOW_PLAYING) {
             getMoviesNowPlaying();
-        } else if (currentList == 4) {
+        } else if (currentList == UPCOMING) {
             getMoviesUpcoming();
         }
     }
@@ -209,25 +213,25 @@ public class MainActivity extends AppCompatActivity
                 getPageNumber(view);
                 break;
             case R.id.rbTopRated:
-                currentList = 1;
+                currentList = TOP_RATED;
                 currentPage = 1;
                 searchQuery = null;
                 getMoviesTopRated();
                 break;
             case R.id.rbPopular:
-                currentList = 2;
+                currentList = POPULAR;
                 currentPage = 1;
                 searchQuery = null;
                 getMoviesPopular();
                 break;
             case R.id.rbNowPlaying:
-                currentList = 3;
+                currentList = NOW_PLAYING;
                 currentPage = 1;
                 searchQuery = null;
                 getMoviesNowPlaying();
                 break;
             case R.id.rbUpcoming:
-                currentList = 4;
+                currentList = UPCOMING;
                 currentPage = 1;
                 searchQuery = null;
                 getMoviesUpcoming();
@@ -238,7 +242,12 @@ public class MainActivity extends AppCompatActivity
     private void getNewMovieList(retrofit2.Response<MoviesTMDB> response) {
         MovieDataCollection.movieArrayList = response.body().getResults();
         totalPages = response.body().getTotalPages();
-        String hint = currentPage + " of " + response.body().getTotalPages();
+        String hint;
+        if (currentList == POPULAR) {   // Fix wrong API index for view Popular Max
+            hint = currentPage + " of 500";
+        } else {
+            hint = currentPage + " of " + response.body().getTotalPages();
+        }
         binding.editPageNumber.setHint(hint);
         recyclerViewAdapter.notifyDataSetChanged();   // Refresh adapter
     }
@@ -279,6 +288,9 @@ public class MainActivity extends AppCompatActivity
             if (newPageInt < 1) {
                 currentPage = 1;
             } else currentPage = Math.min(newPageInt, totalPages);
+            if (currentList == POPULAR && currentPage > 500) { // Popular List = 500 pages max
+                currentPage = 500;                       // But API has wrong max index
+            }
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
